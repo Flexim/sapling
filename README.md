@@ -1,12 +1,5 @@
 # Sapling
 
-[![Version npm][version]](http://browsenpm.org/package/sapling)[![Build Status][build]](https://travis-ci.org/Moveo/sapling)[![Dependencies][david]](https://david-dm.org/Moveo/sapling)[![Coverage Status][cover]](https://coveralls.io/r/Moveo/sapling?branch=master)
-
-[version]: http://img.shields.io/npm/v/sapling.svg?style=flat-square
-[build]: http://img.shields.io/travis/Moveo/sapling/master.svg?style=flat-square
-[david]: https://img.shields.io/david/Moveo/sapling.svg?style=flat-square
-[cover]: http://img.shields.io/coveralls/Moveo/sapling/master.svg?style=flat-square
-
 Convert an array of parent-child relational objects to a tree.
 
 ### Installation
@@ -33,14 +26,14 @@ var Sapling = require('sapling')
 This will result in the following tree:
 
 ```js
-{
+[{
   name: 'node1',
   children: [{
     name: 'node2',
     parent: 'node1',
     children: []
   }]
-}
+}]
 ```
 
 If nodes and the parent are identified by different properties then
