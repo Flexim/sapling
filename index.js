@@ -20,8 +20,9 @@ module.exports = function Sapling(data, key, ref) {
   // Number of iterations in the worst case scenario: (n * 2 - 1).
   // Prepare several variables used in the loop.
   //
-  var i = 2 * data.length - 1
-    , map = {}, datum, parent, name, d;
+  var i = 2 * data.length - 1,
+    map = {},
+    datum, parent, name, d;
 
   while (i-- && data.length > 0) {
     datum = data.pop();
@@ -29,10 +30,8 @@ module.exports = function Sapling(data, key, ref) {
 
     parent = datum[ref];
     name = datum[key];
-
     if (!parent) {
-      map[name] = this;
-      for (d in datum) this[d] = datum[d];
+      map[name] = datum;
     } else {
       map[name] = datum;
 
@@ -40,6 +39,13 @@ module.exports = function Sapling(data, key, ref) {
       else data.unshift(datum);
     }
   }
+  var retArr = [];
+  Object.keys(map).forEach(function (key) {
+    if (!map[key].parent) {
+      retArr.push(map[key]);
+    }
+  });
+  return retArr;
 };
 
 /**
@@ -50,18 +56,16 @@ module.exports = function Sapling(data, key, ref) {
  * @api private
  */
 function clone(array) {
-  var i = array.length
-    , target = new Array(i)
-    , obj, key;
+  var i = array.length,
+    target = new Array(i),
+    obj, key;
 
   while (i--) {
     obj = {};
 
     for (key in array[i]) {
       if (array[i].hasOwnProperty(key)) {
-        obj[key] = Array.isArray(array[i][key])
-          ? clone(array[i][key])
-          : array[i][key];
+        obj[key] = Array.isArray(array[i][key]) ? clone(array[i][key]) : array[i][key];
       }
     }
 
